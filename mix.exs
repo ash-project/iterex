@@ -26,7 +26,7 @@ defmodule Iter.MixProject do
     [
       name: :iterex,
       licenses: ["MIT"],
-      files: ~w[lib .formatter mix.exs README* LICENSE* CHANGELOG*],
+      files: ~w[lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*],
       maintainers: [
         "James Harton <james@harton.nz>",
         "Zach Daniel <zach@zachdaniel.dev>"
