@@ -1,21 +1,41 @@
 defmodule Iter.MixProject do
   use Mix.Project
 
+  @moduledoc """
+  Lazy, external iterators for Elixir.
+  """
+  @version "0.1.0"
+
   def project do
     [
       app: :iterex,
-      version: "0.1.0",
+      version: @version,
+      description: @moduledoc,
       elixir: "~> 1.16",
+      consolidate_protocols: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package()
+      package: package(),
+      docs: docs(),
+      source_url: "https://github.com/ash-project/iterex",
+      homepage_url: "https://github.com/ash-project/iterex"
     ]
   end
 
   def package do
     [
       name: :iterex,
-      maintainers: ["James Harton <james@harton.nz>", "Zach Daniel <zach@zachdaniel.dev>"]
+      licenses: ["MIT"],
+      files: ~w[lib .formatter mix.exs README* LICENSE* CHANGELOG*],
+      maintainers: [
+        "James Harton <james@harton.nz>",
+        "Zach Daniel <zach@zachdaniel.dev>"
+      ],
+      links: %{
+        GitHub: "https://github.com/ash-project/iterex",
+        Discord: "https://discord.gg/HTHRaaVPUc",
+        Sponsor: "https://github.com/sponsors/jimsynz"
+      }
     ]
   end
 
@@ -23,6 +43,14 @@ defmodule Iter.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      formatters: ["html"],
+      extras: ["README.md"]
     ]
   end
 
