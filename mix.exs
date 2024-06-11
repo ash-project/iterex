@@ -50,7 +50,22 @@ defmodule Iter.MixProject do
     [
       main: "readme",
       formatters: ["html"],
-      extras: ["README.md"]
+      extras: ["README.md"],
+      before_closing_head_tag: fn type ->
+        if type == :html do
+          """
+          <script>
+            if (location.hostname === "hexdocs.pm") {
+              var script = document.createElement("script");
+              script.src = "https://plausible.io/js/script.js";
+              script.setAttribute("defer", "defer")
+              script.setAttribute("data-domain", "ashhexdocs")
+              document.head.appendChild(script);
+            }
+          </script>
+          """
+        end
+      end
     ]
   end
 
