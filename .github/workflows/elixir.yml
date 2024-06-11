@@ -1,0 +1,33 @@
+name: Iterex
+
+on:
+  push:
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: team-alembic/staple-actions/actions/mix-deps-get@main
+        with:
+          git-token: ${{ github.token }}
+      - uses: team-alembic/staple-actions/actions/mix-hex-audit-composable@main
+      - uses: team-alembic/staple-actions/actions/mix-compile@main
+        with:
+          mix-env: test
+      - uses: team-alembic/staple-actions/actions/mix-format-composable@main
+        with:
+          mix-env: test
+      - uses: team-alembic/staple-actions/actions/mix-credo-composable@main
+        with:
+          mix-env: test
+      - uses: team-alembic/staple-actions/actions/mix-doctor-composable@main
+        with:
+          mix-env: test
+      - uses: team-alembic/staple-actions/actions/mix-test-composable@main
+        with:
+          mix-env: test
+      - uses: team-alembic/staple-actions/actions/mix-dialyzer-composable@main
+        with:
+          mix-env: test
