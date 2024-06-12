@@ -37,7 +37,7 @@ defmodule Iter do
   Is the passed value an iterator?
   """
   @spec is_iter(any) :: Macro.output()
-  defguard is_iter(value) when is_struct(value, __MODULE__)
+  defguard is_iter(iter) when is_struct(iter, __MODULE__)
 
   @doc """
   Returns `true` if all elements in the iterator are truthy.
@@ -114,7 +114,7 @@ defmodule Iter do
       false
   """
   @spec any?(t) :: boolean
-  def any?(iterable), do: any?(iterable, &(&1 not in [nil, false]))
+  def any?(iter), do: any?(iter, &(&1 not in [nil, false]))
 
   @doc """
   Returns `true` if `fun.(element)` is truthy for at least one element in the
@@ -142,8 +142,8 @@ defmodule Iter do
       false
   """
   @spec any?(t, predicate) :: boolean
-  def any?(iterable, predicate) when is_iter(iterable) and is_function(predicate, 1),
-    do: Iterable.any?(iterable.iterable, predicate)
+  def any?(iter, predicate) when is_iter(iter) and is_function(predicate, 1),
+    do: Iterable.any?(iter.iterable, predicate)
 
   @doc """
   Append a new element to the end of the iterable.
@@ -362,12 +362,12 @@ defmodule Iter do
       [1, 2, 3, 4]
   """
   @spec concat(t) :: t
-  def concat(iter) when is_iter(iter),
-    do:
-      iter.iterable
-      |> Iterable.map(&IntoIterable.into_iterable/1)
-      |> Iterable.concat()
-      |> new()
+  def concat(iter) when is_iter(iter) do
+    iter.iterable
+    |> Iterable.map(&IntoIterable.into_iterable/1)
+    |> Iterable.concat()
+    |> new()
+  end
 
   @doc """
   Creates an iterator that iterates the first argument, followed by the second argument.
@@ -380,11 +380,11 @@ defmodule Iter do
       [1, 2, 3, 4, 5, 6]
   """
   @spec concat(t, t) :: t
-  def concat(lhs, rhs) when is_iter(lhs) and is_iter(rhs),
-    do:
-      [lhs.iterable, rhs.iterable]
-      |> Iterable.concat()
-      |> new()
+  def concat(lhs, rhs) when is_iter(lhs) and is_iter(rhs) do
+    [lhs.iterable, rhs.iterable]
+    |> Iterable.concat()
+    |> new()
+  end
 
   @doc """
   Counts the elements in iterator stopping at `limit`.
@@ -737,10 +737,7 @@ defmodule Iter do
   """
   @spec flat_map(t, mapper) :: t
   def flat_map(iter, mapper) when is_iter(iter) and is_function(mapper, 1),
-    do:
-      iter.iterable
-      |> Iterable.flat_map(mapper)
-      |> new()
+    do: iter.iterable |> Iterable.flat_map(mapper) |> new()
 
   @doc """
   Flattens nested iterators.
@@ -766,6 +763,24 @@ defmodule Iter do
 
   def from(maybe_iterable),
     do: maybe_iterable |> IntoIterable.into_iterable() |> new()
+
+  @doc """
+  Convert an `Enumerable` into an `Iter`.
+
+  Provides an `Enumerable` compatible source for `Iter` using a `GenServer` to
+  orchestrate reduction and block as required.
+
+  > #### Warning {: .warning}
+  > You should almost always implement `IntoIterable` for your enumerable and
+  > use `from/1` rather than resort to calling this function.  Unfortunately it
+  > cannot always be avoided.
+  """
+  @spec from_enum(Enumerable.t()) :: t
+  def from_enum(enumerable) do
+    enumerable
+    |> Iterable.Enumerable.new()
+    |> new()
+  end
 
   @doc """
   Intersperses `separator` between each element of the iterator.
@@ -804,16 +819,16 @@ defmodule Iter do
       [0, 1, 2, 3, 4]
   """
   @spec iterate(element, (element -> element)) :: t
-  def iterate(start_value, next_fun) when is_function(next_fun, 1),
-    do:
-      Iterable.Resource.new(
-        fn -> start_value end,
-        fn acc ->
-          {[acc], next_fun.(acc)}
-        end,
-        fn _ -> :ok end
-      )
-      |> new()
+  def iterate(start_value, next_fun) when is_function(next_fun, 1) do
+    Iterable.Resource.new(
+      fn -> start_value end,
+      fn acc ->
+        {[acc], next_fun.(acc)}
+      end,
+      fn _ -> :ok end
+    )
+    |> new()
+  end
 
   @doc """
   Creates a new iterator which applies `mapper` on every `nth` element of the
@@ -865,10 +880,7 @@ defmodule Iter do
   """
   @spec map(t, mapper) :: t
   def map(iter, mapper) when is_iter(iter) and is_function(mapper, 1),
-    do:
-      iter.iterable
-      |> Iterable.map(mapper)
-      |> new()
+    do: iter.iterable |> Iterable.map(mapper) |> new()
 
   @doc """
   Returns the maximal element in the iterator according to Erlang's term sorting.
@@ -1344,12 +1356,12 @@ defmodule Iter do
       [12, 15, 18]
   """
   @spec zip_with(t, ([element] -> any)) :: t
-  def zip_with(iter, zipper) when is_iter(iter) and is_function(zipper, 1),
-    do:
-      iter.iterable
-      |> Iterable.map(&IntoIterable.into_iterable/1)
-      |> Iterable.zip(zipper)
-      |> new()
+  def zip_with(iter, zipper) when is_iter(iter) and is_function(zipper, 1) do
+    iter.iterable
+    |> Iterable.map(&IntoIterable.into_iterable/1)
+    |> Iterable.zip(zipper)
+    |> new()
+  end
 
   @doc """
   Zips corresponding elements from two iterators into a new one, transforming
@@ -1367,8 +1379,11 @@ defmodule Iter do
       [5, 7, 9]
   """
   @spec zip_with(t, t, (element, element -> any)) :: t
-  def zip_with(lhs, rhs, zipper) when is_iter(lhs) and is_iter(rhs) and is_function(zipper, 2),
-    do: [lhs.iterable, rhs.iterable] |> Iterable.zip(fn [a, b] -> zipper.(a, b) end) |> new()
+  def zip_with(lhs, rhs, zipper) when is_iter(lhs) and is_iter(rhs) and is_function(zipper, 2) do
+    [lhs.iterable, rhs.iterable]
+    |> Iterable.zip(fn [a, b] -> zipper.(a, b) end)
+    |> new()
+  end
 
   @doc """
   Zips corresponding elements from a finite collection of iterators into one iterator of tuples.
@@ -1387,12 +1402,12 @@ defmodule Iter do
       [{1, :a, "a"}, {2, :b, "b"}, {3, :c, "c"}]
   """
   @spec zip(t) :: t
-  def zip(iter) when is_iter(iter),
-    do:
-      iter.iterable
-      |> Iterable.map(&IntoIterable.into_iterable/1)
-      |> Iterable.zip(&List.to_tuple/1)
-      |> new()
+  def zip(iter) when is_iter(iter) do
+    iter.iterable
+    |> Iterable.map(&IntoIterable.into_iterable/1)
+    |> Iterable.zip(&List.to_tuple/1)
+    |> new()
+  end
 
   @doc """
   Zips to iterators together.
@@ -1408,8 +1423,11 @@ defmodule Iter do
       [{1, :a}, {2, :b}, {3, :c}]
   """
   @spec zip(t, t) :: t
-  def zip(lhs, rhs) when is_iter(lhs) and is_iter(rhs),
-    do: [lhs.iterable, rhs.iterable] |> Iterable.zip(&List.to_tuple/1) |> new()
+  def zip(lhs, rhs) when is_iter(lhs) and is_iter(rhs) do
+    [lhs.iterable, rhs.iterable]
+    |> Iterable.zip(&List.to_tuple/1)
+    |> new()
+  end
 
   defp new(iterable), do: %__MODULE__{iterable: iterable}
 end
