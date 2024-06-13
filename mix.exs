@@ -51,6 +51,7 @@ defmodule Iter.MixProject do
       main: "readme",
       formatters: ["html"],
       extras: ["README.md"],
+      logo: "logos/iterex-logo-small.png",
       before_closing_head_tag: fn type ->
         if type == :html do
           """

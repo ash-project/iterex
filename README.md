@@ -1,4 +1,7 @@
-# 👁️🦖
+<img src="https://github.com/ash-project/iterex/blob/main/logos/iterex-logo-small.png?raw=true#gh-light-mode-only" alt="Logo Light" width="250">
+<img src="https://github.com/ash-project/iterex/blob/main/logos/iterex-logo-small.png?raw=true#gh-dark-mode-only" alt="Logo Dark" width="250">
+
+# Iterex
 
 ![Elixir CI](https://github.com/ash-project/iterex/actions/workflows/elixir.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
