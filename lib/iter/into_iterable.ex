@@ -4,6 +4,9 @@ defprotocol Iter.IntoIterable do
 
   Required by `Iter.from/1` and others.
 
+  By default this protocol is implemented for `List`, `Map`, `MapSet` and
+  `Range` and `Date.Range` as well as all iterex's internal types.
+
   Allows the data and the iterable for that data to be separate.  It could be as
   simple as a reference to some external data source and a position marker or it
   may be more efficient to read data in batches and iterate it.  Regardless,
