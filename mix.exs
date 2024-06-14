@@ -4,7 +4,7 @@ defmodule Iter.MixProject do
   @moduledoc """
   Lazy, external iterators for Elixir.
   """
-  @version "0.1.0"
+  @version "0.1.1"
 
   def project do
     [
