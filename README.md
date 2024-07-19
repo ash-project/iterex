@@ -32,7 +32,7 @@ The package can be installed by adding `iterex` to your list of dependencies in 
 ```elixir
 def deps do
   [
-    {:iterex, "~> 0.1.1"}
+    {:iterex, "~> 0.1.2"}
   ]
 end
 ```
