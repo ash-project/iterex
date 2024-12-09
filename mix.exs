@@ -11,7 +11,7 @@ defmodule Iter.MixProject do
       app: :iterex,
       version: @version,
       description: @moduledoc,
-      elixir: "~> 1.16",
+      elixir: "~> 1.15",
       consolidate_protocols: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
