@@ -11,8 +11,8 @@ defmodule Iter.Iterable.WhileChunker do
   @type t :: %__MODULE__{
           iterable: Iterable.t(),
           acc: nil,
-          chunk_fun:
-            (Iterable.element(), acc -> {:cont, chunk, acc} | {:cont, acc} | {:halt, acc}),
+          chunk_fun: (Iterable.element(), acc ->
+                        {:cont, chunk, acc} | {:cont, acc} | {:halt, acc}),
           after_fun: (acc -> {:cont, chunk, acc} | {:cont, acc})
         }
 
