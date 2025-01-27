@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.1.3](https://github.com/ash-project/iterex/compare/v0.1.2...v0.1.3) (2025-01-27)
+
+
+
+
+### Improvements:
+
+* lower min elixir version
+
 ## [v0.1.2](https://github.com/ash-project/iterex/compare/v0.1.1...v0.1.2) (2024-07-19)
 
 
