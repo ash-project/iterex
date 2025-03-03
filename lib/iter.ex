@@ -641,7 +641,7 @@ defmodule Iter do
   def empty, do: Iterable.Empty.new() |> new()
 
   @doc """
-  Remove elements for which `predicate` returns a truthy value.
+  Remove elements for which `predicate` returns a falsy value.
 
   ## Example
 

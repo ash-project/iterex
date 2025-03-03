@@ -72,18 +72,18 @@ defmodule Iter.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    opts = [only: [:dev, :test], runtime: false]
-
     [
-      {:credo, "~> 1.7", opts},
-      {:dialyxir, "~> 1.3", opts},
-      {:doctor, "~> 0.21", opts},
-      {:earmark, ">= 0.0.0", opts},
-      {:ex_check, "~> 0.16", opts},
-      {:ex_doc, ">= 0.0.0", opts},
-      {:faker, "~> 0.18", opts},
-      {:git_ops, "~> 2.6", opts},
-      {:mix_audit, "~> 2.1", opts}
+      {:splode, "~> 0.2"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
+      {:doctor, "~> 0.21", only: [:dev, :test], runtime: false},
+      {:earmark, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:ex_check, "~> 0.16", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:faker, "~> 0.18", only: [:dev, :test], runtime: false},
+      {:git_ops, "~> 2.6", only: [:dev, :test], runtime: false},
+      {:igniter, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
     ]
   end
 end
