@@ -2,7 +2,7 @@ defprotocol Iter.Iterable do
   @moduledoc """
   This is the main iterable protocol.
 
-  It is intentionally huge, however rte only function you have to implement is
+  It is intentionally huge, however the only function you have to implement is
   `next/1`, for the remainder you can rely on the default implementations from
   `Iter.Impl` unless your data structure can provide a more
   efficient method of generating the correct answer.
