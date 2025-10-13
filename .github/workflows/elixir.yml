@@ -1,33 +1,39 @@
-name: Iterex
-
+# SPDX-FileCopyrightText: 2023 Alembic Pty Ltd
+# SPDX-FileCopyrightText: 2023 James Harton
+# SPDX-FileCopyrightText: 2023 Zach Daniel
+#
+# SPDX-License-Identifier: MIT
+name: CI
 on:
   push:
-
+    tags:
+      - "v*"
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_call:
 jobs:
-  ci:
-    name: Continuous Integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: team-alembic/staple-actions/actions/mix-deps-get@main
-        with:
-          git-token: ${{ github.token }}
-      - uses: team-alembic/staple-actions/actions/mix-hex-audit-composable@main
-      - uses: team-alembic/staple-actions/actions/mix-compile@main
-        with:
-          mix-env: test
-      - uses: team-alembic/staple-actions/actions/mix-format-composable@main
-        with:
-          mix-env: test
-      - uses: team-alembic/staple-actions/actions/mix-credo-composable@main
-        with:
-          mix-env: test
-      - uses: team-alembic/staple-actions/actions/mix-doctor-composable@main
-        with:
-          mix-env: test
-      - uses: team-alembic/staple-actions/actions/mix-test-composable@main
-        with:
-          mix-env: test
-      - uses: team-alembic/staple-actions/actions/mix-dialyzer-composable@main
-        with:
-          mix-env: test
+  ash-ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - elixir-version: "1.16.3-otp-26"
+            erlang-version: "26.0"
+            primary: false
+          - elixir-version: "default"
+            erlang-version: "default"
+            primary: true
+    uses: ash-project/ash/.github/workflows/ash-ci.yml@main
+    with:
+      spark-formatter: false
+      spark-cheat-sheets: false
+      sobelow: false
+      elixir-version: ${{ matrix.elixir-version }}
+      erlang-version: ${{ matrix.erlang-version }}
+      igniter-upgrade: false
+      publish-docs: ${{ matrix.primary }}
+      release: ${{ matrix.primary }}
+      reuse: true
+    secrets:
+      HEX_API_KEY: ${{ secrets.HEX_API_KEY }}

@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2023 Alembic Pty Ltd
+# SPDX-FileCopyrightText: 2023 James Harton
+# SPDX-FileCopyrightText: 2023 Zach Daniel
+#
+# SPDX-License-Identifier: MIT
+
 defmodule Iter.MixProject do
   use Mix.Project
 
@@ -24,7 +30,6 @@ defmodule Iter.MixProject do
 
   def package do
     [
-      name: :iterex,
       licenses: ["MIT"],
       files: ~w[lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*],
       maintainers: [
@@ -32,9 +37,13 @@ defmodule Iter.MixProject do
         "Zach Daniel <zach@zachdaniel.dev>"
       ],
       links: %{
-        GitHub: "https://github.com/ash-project/iterex",
-        Discord: "https://discord.gg/HTHRaaVPUc",
-        Sponsor: "https://github.com/sponsors/jimsynz"
+        "GitHub" => "https://github.com/ash-project/iterex",
+        "Changelog" => "https://github.com/ash-project/iterex/blob/main/CHANGELOG.md",
+        "Discord" => "https://discord.gg/HTHRaaVPUc",
+        "Website" => "https://ash-hq.org",
+        "Forum" => "https://elixirforum.com/c/elixir-framework-forums/ash-framework-forum",
+        "REUSE Compliance" => "https://api.reuse.software/info/github.com/ash-project/iterex",
+        "Sponsor" => "https://github.com/sponsors/jimsynz"
       }
     ]
   end

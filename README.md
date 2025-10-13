@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2023 Alembic Pty Ltd
+SPDX-FileCopyrightText: 2023 James Harton
+SPDX-FileCopyrightText: 2023 Zach Daniel
+
+SPDX-License-Identifier: MIT
+-->
+
 <img src="https://github.com/ash-project/iterex/blob/main/logos/iterex-logo-small.png?raw=true#gh-light-mode-only" alt="Logo Light" width="250">
 <img src="https://github.com/ash-project/iterex/blob/main/logos/iterex-logo-small.png?raw=true#gh-dark-mode-only" alt="Logo Dark" width="250">
 
@@ -6,6 +14,8 @@
 ![Elixir CI](https://github.com/ash-project/iterex/actions/workflows/elixir.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hex version badge](https://img.shields.io/hexpm/v/iterex.svg)](https://hex.pm/packages/iterex)
+[![Hexdocs badge](https://img.shields.io/badge/docs-hexdocs-purple)](https://hexdocs.pm/iterex)
+[![REUSE status](https://api.reuse.software/badge/github.com/ash-project/iterex)](https://api.reuse.software/info/github.com/ash-project/iterex)
 
 Iterex is a library that provides external iterators for Elixir collections.
 
