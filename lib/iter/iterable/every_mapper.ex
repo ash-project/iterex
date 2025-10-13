@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2023 Alembic Pty Ltd
+# SPDX-FileCopyrightText: 2023 James Harton
+# SPDX-FileCopyrightText: 2023 Zach Daniel
+#
+# SPDX-License-Identifier: MIT
+
 defmodule Iter.Iterable.EveryMapper do
   defstruct iterable: nil, every: nil, count: 0, mapper: nil
 
