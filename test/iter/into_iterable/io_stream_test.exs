@@ -25,12 +25,17 @@ defmodule Iter.IntoIterable.IO.StreamTest do
   defp words do
     how_many = 20 + :rand.uniform(20)
 
-    words =
-      1..how_many
-      |> Iter.from()
-      |> Iter.map(fn _ -> Faker.Lorem.word() end)
-      |> Enum.join("\n")
+    1..how_many
+    |> Iter.from()
+    |> Iter.map(fn _ -> word() end)
+    |> Enum.join("\n")
+  end
 
-    words
+  defp word do
+    length = 3 + :rand.uniform(7)
+
+    1..length
+    |> Enum.map(fn _ -> ?a + :rand.uniform(26) - 1 end)
+    |> List.to_string()
   end
 end
