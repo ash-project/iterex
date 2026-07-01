@@ -86,7 +86,6 @@ defmodule Iter.MixProject do
       {:credo, "~> 1.7", opts},
       {:dialyxir, "~> 1.3", opts},
       {:doctor, "~> 0.21", opts},
-      {:earmark, ">= 0.0.0", opts},
       {:ex_check, "~> 0.16", opts},
       {:ex_doc, ">= 0.0.0", opts},
       {:faker, "~> 0.18", opts},
